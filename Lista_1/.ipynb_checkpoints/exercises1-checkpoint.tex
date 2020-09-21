@@ -1,0 +1,62 @@
+\documentclass[a4paper]{article}
+
+\usepackage{xltxtra}
+\usepackage{polyglossia}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{unicode-math}
+
+
+\geometry{a4paper,left=15mm,right=15mm,top=20mm,bottom=20mm}
+\pagestyle{fancy}
+\lhead{Felipe Costa}
+\chead{Advanced Simulation Methods}
+\rhead{\today}
+\cfoot{\thepage}
+
+\setlength{\headheight}{23pt}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.0in}
+
+\begin{document}
+
+\section*{Problem Sheet 1}
+
+\vspace{0,75cm}
+
+\subsection*{Exercise 1 (Inversion and Rejection)}
+\vspace{0,75cm}
+\textbf{1.} We got $Y ~ Exp(\lambda)$ and $a>0$. The cumulative distribution function of X:
+
+
+$$F_{X}(x) = \mathbb{P}(X \leq x) = \mathbb{P}(Y \leq x | Y \geq a) = \frac{\mathbb{P}(Y \leq x,Y \geq a)}{\mathbb{P}(Y \geq a)} = \frac{[\mathbb{P}(Y \leq x) - \mathbb{P}(Y \leq a)]\mathbb{1}_{Y \geq a}}{1 - \mathbb{P}(Y \leq a)}$$
+
+$$F_{X}(x) =  \frac{1 - e^{- \lambda x}- (1-e^{- \lambda a})}{1-(1-e^{- \lambda a})}\mathbb{1}_{X \geq a} = 1-\frac{e^{- \lambda x}}{e^{- \lambda a}} = [1- e^{\lambda(a-x)}]\mathbb{1}_{X \geq a}$$\\
+
+\hspace{0,5cm}The quantile function of X:
+
+$$ 1-e^{\lambda(a-x)} = U \Leftrightarrow e^{\lambda(a-x)} = 1-U \Leftrightarrow ln(e^{\lambda(a-x)}) = ln(1-U) \Leftrightarrow x = a-\frac{ln(1-U)}{\lambda} $$
+
+$$F^{-1}_{X}(U) =  a-\frac{ln(1-U)}{\lambda}$$
+
+\vspace{0,75cm}
+\textbf{2.} Letting a and b be given, with $a<b$ , we have the cumulative distribution function of $X = Y|(a \leq Y \leq b)$:
+
+$$F_{X}(x) = \mathbb{P}(X \leq x) = \mathbb{P}(Y \leq x |a \leq Y \leq b) = \frac{\mathbb{P}(Y \leq x,a \leq Y \leq b)}{\mathbb{P}(a \leq Y \leq b)}= \frac{\mathbb{P}(a \leq Y \leq x)}{\mathbb{P}(a \leq Y \leq b)} $$
+
+$$F_{X}(x) = \frac{\mathbb{P}( Y \leq x) - \mathbb{P}(Y \leq a)}{\mathbb{P}(Y \leq b) - \mathbb{P}(Y \leq a)}\mathbb{1}_{Y \geq a}$$
+
+\vspace{0,5cm}
+\hspace{0,5cm}Using that $X = F^{-1}_{Y}(F_{Y}(a)(1-U)+F_{Y}(b)U)$, we have:
+
+$$\mathbb{P}(F^{-1}_{Y}(F_{Y}(a)(1-U)+F_{Y}(b)U) \leq x) = \mathbb{P}(F_{Y}(a)(1-U)+F_{Y}(b)U \leq F_{Y}(x))$$
+$$=\mathbb{P}(F_{Y}(a)-F_{Y}(a)U+F_{Y}(b)U \leq F_{Y}(x)) = \mathbb{P}(U(F_{Y}(b)-F_{Y}(a)) \leq F_{Y}(x)-F_{Y}(a))$$
+$$=\mathbb{P}(U \leq \frac{F_{Y}(x)-F_{Y}(a)}{F_{Y}(b)-F_{Y}(a)}) = \frac{F_{Y}(x)-F_{Y}(a)}{F_{Y}(b)-F_{Y}(a)} $$
+
+\vspace{0,5cm}
+
+Then $\mathbb{P}(X \leq x) = \mathbb{P}(Y \leq x|a \leq Y \leq b)$, when $X = F^{-1}_{Y}(F_{Y}(a)(1-U)+F_{Y}(b)U)$.
+
+\end{document}
